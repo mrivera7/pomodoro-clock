@@ -1,30 +1,13 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
-// import './App.css';
+import { connect } from 'react-redux';
+import Break from "./components/break";
+import Session from "./components/session";
 
 function App() {
   return (
-    <div id="App">
-        <div id="break-control">
-            <div id="break-label"></div>
-            <div id="break-decrement"></div>
-            <div id="break-increment"></div>
-            <div id="break-length">
-                    {/*
-                        default (on load) value of 5
-                    */}
-            </div>
-        </div>
-        <div id="sesson-control">
-            <div id="session-label"></div>
-            <div id="session-decrement"></div>
-            <div id="session-increment"></div>
-            <div id="session-length">
-                    {/*
-                        default value of 25
-                    */}
-            </div>
-        </div>
+    <div id="App" className="row">
+        <Break />
+        <Session />
         <div id="timer">
             <div id="timer-label"></div>
             <div id="time-left">
