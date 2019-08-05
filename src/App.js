@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Break from "./components/break";
 import Session from "./components/session";
 
-function App() {
+function App(props) {
   return (
     <div id="App" className="row">
-        <Break />
-        <Session />
+        <Break time={props.break} />
+        <Session time={props.session} />
         <div id="timer">
             <div id="timer-label"></div>
             <div id="time-left">

@@ -1,8 +1,8 @@
 import { BRK_INC, BRK_DEC, SES_INC, SES_DEC } from './actions';
 
 export const initialState = {
-    "break": 5,
-    "session": 25
+    break: 5,
+    session: 25
 };
 
 function reducer (state=initialState, action) {
