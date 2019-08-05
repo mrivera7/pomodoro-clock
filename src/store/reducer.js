@@ -8,10 +8,9 @@ export const initialState = {
 function reducer (state=initialState, action) {
     switch(action.type) {
         case BRK_INC:
-            state.break += 1;
-            return state;
+            return Object.assign({}, state, { break: state.break + 1 });
         case BRK_DEC:
-            state.break -= 1;
+            return Object.assign({}, state, { break: state.break - 1 });
         case SES_INC:
             state.session += 1;
             return state;
