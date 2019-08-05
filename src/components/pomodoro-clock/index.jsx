@@ -11,13 +11,17 @@ import store from '../../store/configureStore';
 class App extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            break: false,
+        };
     }
     render() {
+        const { props } = this;
         return (
             <div id="pomodoroClock" className="row">
-                <Break store={this.props} />
-                <Session store={this.props} />
-                <Timer />
+                <Break store={props} />
+                <Session store={props} />
+                <Timer store={props} />
             </div>
         );
     }
@@ -32,6 +36,7 @@ const PomodoroClock = () => (
 const mapStateToProps = (state) => ({
     break: state.break,
     session: state.session,
+    timeLeft: state.timeLeft,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -39,6 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
     brkDec: () => dispatch({ type: 'BRK_DEC' }),
     sesInc: () => dispatch({ type: 'SES_INC' }),
     sesDec: () => dispatch({ type: 'SES_DEC' }),
+    tick: (timeLeft) => dispatch({ type: 'TICK', payload: timeLeft }),
 });
 
 const ConnectApp = connect(mapStateToProps, mapDispatchToProps)(App);
