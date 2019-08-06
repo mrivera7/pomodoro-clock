@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 class Break extends Component{
     constructor(props) {
@@ -11,7 +12,7 @@ class Break extends Component{
                 <h3 id="break-label">Break Length</h3>
                 <button id="break-decrement" onClick={() => store.brkDec()}>-</button>
                 <div id="break-length" style={{ display: "inline" }}>
-                    { new Date(store.brk).getMinutes() }
+                    { moment(store.brk).format('mm:ss') }
                         {/*
                             default (on load) value of 5
                         */}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 class Timer extends Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class Timer extends Component {
     render() {
         const { store } = this.props;
         const { brk, ses, timeLeft, runTimer, laze, reset } = store;
+        /*
         let mm, ss;
         if(!runTimer && timeLeft === null) {
             mm = `${new Date(ses).getMinutes()}`;
@@ -32,13 +34,15 @@ class Timer extends Component {
             mm = `${new Date(timeLeft).getMinutes()}`;
             ss = `${new Date(new Date().setSeconds(new Date(timeLeft).getSeconds() % 60)).getSeconds()}`;
         }
+        */
         return(
             <>
                 <div id="timer">
                         <div id="timer-label"></div>
                         <div id="time-left">
                             {
-                                `${mm}:${ss}`
+                                // `${mm}:${ss}`
+                                (timeLeft !== null ? moment(timeLeft).format('mm:ss') : '25:00')
                             }
                             {/*
                                 mm:ss
