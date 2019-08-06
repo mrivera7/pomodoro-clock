@@ -5,15 +5,13 @@ import Timer from "./timer";
 
 import { connect, Provider } from 'react-redux';
 
-import store from '../../store/configureStore';
+import store from '../../store';
+import act from '../../actions';
 
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            break: false,
-        };
     }
     render() {
         const { props } = this;
@@ -34,17 +32,21 @@ const PomodoroClock = () => (
 );
 
 const mapStateToProps = (state) => ({
-    break: state.break,
-    session: state.session,
+    brk: state.brk,
+    ses: state.ses,
     timeLeft: state.timeLeft,
+    runTimer: state.runTimer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    brkInc: () => dispatch({ type: 'BRK_INC' }),
-    brkDec: () => dispatch({ type: 'BRK_DEC' }),
-    sesInc: () => dispatch({ type: 'SES_INC' }),
-    sesDec: () => dispatch({ type: 'SES_DEC' }),
-    tick: (timeLeft) => dispatch({ type: 'TICK', payload: timeLeft }),
+    brkInc: () => dispatch(act.brkInc()),
+    brkDec: () => dispatch(act.brkDec()),
+    sesInc: () => dispatch(act.sesInc()),
+    sesDec: () => dispatch(act.sesDec()),
+    tick: (timeLeft) => dispatch(act.tick(timeLeft)),
+    invTmr: () => dispatch(act.invTmr()),
+    invLaz: () => dispatch(act.invLaz()),
+    reset: () => dispatch(act.reset()),
 });
 
 const ConnectApp = connect(mapStateToProps, mapDispatchToProps)(App);

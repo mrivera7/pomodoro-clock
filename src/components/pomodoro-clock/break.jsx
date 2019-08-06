@@ -11,7 +11,7 @@ class Break extends Component{
                 <h3 id="break-label">Break Length</h3>
                 <button id="break-decrement" onClick={() => store.brkDec()}>-</button>
                 <div id="break-length" style={{ display: "inline" }}>
-                    { store.break }
+                    { new Date(store.brk).getMinutes() }
                         {/*
                             default (on load) value of 5
                         */}

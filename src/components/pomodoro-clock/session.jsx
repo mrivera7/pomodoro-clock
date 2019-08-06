@@ -11,7 +11,7 @@ class Session extends Component {
                 <h3 id="session-label">Session Length</h3>
                 <button id="session-decrement" onClick={() => store.sesDec()}>-</button>
                 <div id="session-length" style={{display: "inline"}}>
-                    { store.session }
+                    { new Date(store.ses).getMinutes() }
                         {/*
                             default value of 25
                         */}

@@ -1,23 +1,31 @@
-import { BRK_INC, BRK_DEC, SES_INC, SES_DEC } from './actions';
-import { bindActionCreators } from 'C:/Users/Michael/AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux';
+import { BRK_INC, BRK_DEC, SES_INC, SES_DEC, TICK, INV_TMR, INV_LAZ, RESET } from '../constants';
 
 export const initialState = {
-    break: 5,
-    session: 25
+    brk: new Date().setMinutes(5),
+    ses: new Date().setMinutes(25),
+    laze: false,
+    runTimer: false,
+    timeLeft: null,
 };
 
 function reducer (state=initialState, action) {
     switch(action.type) {
         case BRK_INC:
-            return Object.assign({}, state, { break: state.break + 1 });
+            return Object.assign({}, state, { brk: new Date(new Date(state.brk).getMinutes() + 1) });
         case BRK_DEC:
-            return Object.assign({}, state, { break: state.break - 1 });
+            return Object.assign({}, state, { brk: new Date(new Date(state.brk).getMinutes() - 1) });
         case SES_INC:
-            return Object.assign({}, state, { session: state.session + 1});
+            return Object.assign({}, state, { ses: new Date(new Date(state.ses).getMinutes() + 1) });
         case SES_DEC:
-            return Object.assign({}, state, { session: state.session + 1});
-        case "TICK":
-            return Object.assign({}, state, { timeLeft: action.payload.timeLeft });
+            return Object.assign({}, state, { ses: new Date(new Date(state.ses).getMinutes() - 1) });
+        case TICK:
+            return Object.assign({}, state, { timeLeft: new Date((new Date(state.timeLeft).getSeconds() - new Date(new Date().setSeconds(1)))) });
+        case INV_TMR:
+            return Object.assign({}, state, { runTimer: !state.runTimer }, { timeLeft: (!!state.timeLeft ? new Date().setTime(new Date(state.timeLeft).getSeconds() - 1) : (!state.laze ? state.ses : state.brk)) });
+        case INV_LAZ:
+            return Object.assign({}, state, { laze: !state.laze });
+        case RESET:
+            return initialState;
         default:
             return state;
     }
