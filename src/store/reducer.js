@@ -9,6 +9,7 @@ export const initialState = {
 };
 
 function reducer (state=initialState, action) {
+    const minute = new Date().getTime();
     switch(action.type) {
         case BRK_INC:
             return Object.assign({}, state, { brk: new Date(new Date(state.brk).getMinutes() + 1) });
