@@ -1,4 +1,10 @@
-import { BRK_INC, BRK_DEC, SES_INC, SES_DEC, TICK, INV_TMR, INV_LAZ, RESET } from '../constants';
+import { INIT, BRK_INC, BRK_DEC, SES_INC, SES_DEC, TICK, INV_TMR, INV_LAZ, RESET } from '../constants';
+
+export const init = () => {
+    return {
+        type: INIT
+    };
+};
 
 export const brkInc = () => {
     return {
@@ -50,6 +56,11 @@ export const reset = () => {
 };
 
 const act = {
+    init: () => {
+        return {
+            type: INIT
+        };
+    },
     brkInc: () => {
         return {
             type: BRK_INC
