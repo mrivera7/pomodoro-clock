@@ -8,12 +8,31 @@ import SetTime from '../SetTime';
 
 // Learn to use useCallback hook effectively
 
+const DisplayTimeLeft = ({ mins, secs }) => {
+  let seconds;
+  if (secs === 60) {
+    seconds = '00';
+  } else if (secs > 9) {
+    seconds = `${secs}`;
+  } else {
+    seconds = '0'.concat(`${secs}`);
+  }
+  return (
+    <h6
+      id="time-left"
+    >
+      {`${mins}:${seconds}`}
+    </h6>
+  );
+};
+
 const CountdownTimer = () => {
+
   const [breakOrSession, setBreakOrSession] = useState(0);
 
-  const [breakTime, setBreakTime] = useState(2);
+  const [breakTime, setBreakTime] = useState(5);
 
-  const [sessionTime, setSessionTime] = useState(4);
+  const [sessionTime, setSessionTime] = useState(25);
 
   const countdownCondition = () => (breakOrSession % 2 === 0 ? sessionTime : breakTime);
   const [countdown, setCountdown] = useState(countdownCondition());
@@ -21,34 +40,57 @@ const CountdownTimer = () => {
     setCountdown(countdownCondition());
   }, [breakOrSession, breakTime, sessionTime]);
 
+  const [seconds, setSeconds] = useState(60);
+
   const [play, setPlay] = useState(false);
   useEffect(() => {
     if (play === true) {
       const timer = setTimeout(() => {
-        setCountdown(countdown - 1);
+        setSeconds(seconds - 1);
+        if (seconds === 60) {
+          setCountdown(countdown - 1);
+        }
       }, 1000);
       if (countdown === 0) {
         setBreakOrSession(breakOrSession + 1);
+      }
+      if (seconds === 0) {
+        setSeconds(60);
         clearTimeout(timer);
       }
     }
-  }, [play, countdown]);
+  }, [play, countdown, seconds]);
 
   const handlePlay = () => {
     setPlay(!play);
   };
   return (
-    <>
-      <SetTime id="break" title="Break Length" set={setBreakTime} time={breakTime} />
+    <div
+      style={{
+        border: '2px solid black',
+        textAlign: 'center',
+        margin: 'auto',
+      }}
+    >
       <div id="timer">
-        <div id="timer-label" />
-        <div id="time-left">{countdown}</div>
-        <Button id="timer-button" onClick={handlePlay}>
+        <h5
+          id="timer-label"
+        >
+          Pomodoro Clock
+        </h5>
+        <DisplayTimeLeft
+          mins={countdown}
+          secs={seconds}
+        />
+        <Button id="start_stop" onClick={handlePlay}>
           Play/Pause
         </Button>
       </div>
-      <SetTime id="session" title="Session Length" set={setSessionTime} time={sessionTime} />
-    </>
+      <div>
+        <SetTime id="session" title="Session Length" set={setSessionTime} time={sessionTime} />
+        <SetTime id="break" title="Break Length" set={setBreakTime} time={breakTime} />
+      </div>
+    </div>
   );
 };
 

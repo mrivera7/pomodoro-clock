@@ -4,6 +4,12 @@ import React from 'react';
 
 // import Button from '../Button';
 
+const buttonStyle = {
+  width: '3rem',
+  margin: '.25rem',
+  borderRadius: '5px',
+};
+
 const SetTime = (props) => {
   const {
     id, title, set, time,
@@ -15,11 +21,36 @@ const SetTime = (props) => {
     set(time + 1);
   };
   return (
-    <div id={id}>
-      <h3>{title}</h3>
-      <button type="button" onClick={handleDecrement}>-</button>
-      {time}
-      <button type="button" onClick={handleIncrement}>+</button>
+    <div
+      id={id}
+      style={{
+        display: 'inline-block',
+        margin: '1rem',
+        textAlign: 'center',
+        border: '2px solid black',
+        width: '9rem',
+      }}
+    >
+      <h6 id={id.concat('-label')}>{title}</h6>
+      <div id={id.concat('-length')}>{time}</div>
+      <div>
+        <button
+          id={id.concat('-decrement')}
+          type="button"
+          onClick={handleDecrement}
+          style={buttonStyle}
+        >
+          -
+        </button>
+        <button
+          id={id.concat('-increment')}
+          type="button"
+          onClick={handleIncrement}
+          style={buttonStyle}
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 };
